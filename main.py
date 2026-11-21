@@ -1,16 +1,13 @@
 import os
+from pathlib import Path
 
-JOKE = (
-    "My agent's pull request rewrote 2,000 lines, touched zero tests, "
-    "and the whole commit message was: 'trust me.'"
-)
+TEXT = "My agent's pull request rewrote 2,000 lines, touched zero tests, and the whole commit message was: 'trust me.'"
 
 
 def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
-        f.write(JOKE)
+    target = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
+    target.mkdir(parents=True, exist_ok=True)
+    (target / "entry.txt").write_text(TEXT, encoding="utf-8")
 
 
 if __name__ == "__main__":
